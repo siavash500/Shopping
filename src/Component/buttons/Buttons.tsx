@@ -1,19 +1,34 @@
 import React, {type ComponentProps} from "react";
 
-type TButtons = ComponentProps<"button">
+type TVariant =  "primery" | "danger"  | "succes"
+
+type TButtons = ComponentProps<"button"> & {
+  variant : TVariant
+}
 
 
-export default function Buttons ({children, ...props}:TButtons) {
-    return <button {...props} >{children}</button>
+
+export default function Buttons ({children, variant , ...props}:TButtons) {
+  console.log(checkVariant(variant))
+  
+  return <button {...props} style={{...checkVariant(variant)}} >{children}</button>
 
 }
 
 
 
+//الان این فانکشن ریتونکننده اینه که هربار هر چیزی رو خواستیم کافیه به باتنمون بدیم
 
+function checkVariant (variant : TVariant) {
 
+  if(variant === "primery") {
+    return {backgroundColor : "grey" , color : "white"}
+  }
+  else if (variant === 'danger') {
+    return {backgroundColor : "red" , color : "white"}
+  }
+  else if (variant === "succes") {
+    return {backgroundColor : "green" , color : "white"}
+  }
 
-  // <div className="flex flex-row-reverse gap-4 mt-6 justify-end">
-    //   <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow">
-    //     افزودن به سبد خرید
-    //   </button>
+}
