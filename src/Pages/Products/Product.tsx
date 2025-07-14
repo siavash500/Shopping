@@ -35,14 +35,14 @@ export default function Product() {
             <p className="text-lg text-green-600 font-semibold">قیمت: ۵۸۰٬۰۰۰ تومان</p>
             <p className="text-sm text-gray-500 mt-2">موجود در انبار | ارسال رایگان</p>
             <div className="flex flex-row-reverse gap-4 mt-6 justify-end">
-
+{/* /////////////////////////////////////////////////////////////////////////////// */}
             <div className="flex flex-row-reverse gap-4 mt-6 justify-end">
               <Buttons className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow"  
                 variant='succes'
                 >
                 خریدن محصول
               </Buttons>
-              <Buttons className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow"  
+              <Buttons className=" hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow"  
                 variant='primery'
                 >
                 افزودن به علاقه مندی

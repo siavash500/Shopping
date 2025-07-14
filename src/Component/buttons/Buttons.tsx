@@ -8,10 +8,10 @@ type TButtons = ComponentProps<"button"> & {
 
 
 
-export default function Buttons ({children, variant , ...props}:TButtons) {
+export default function Buttons ({children, variant,style , ...props}:TButtons) {
   console.log(checkVariant(variant))
   
-  return <button {...props} style={{...checkVariant(variant)}} >{children}</button>
+  return <button {...props} style={{...style , ...checkVariant(variant)}} >{children}</button>
 
 }
 
