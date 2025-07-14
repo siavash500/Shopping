@@ -37,21 +37,18 @@ export default function Product() {
             <div className="flex flex-row-reverse gap-4 mt-6 justify-end">
 {/* /////////////////////////////////////////////////////////////////////////////// */}
             <div className="flex flex-row-reverse gap-4 mt-6 justify-end">
-              <Buttons className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow"  
-                variant='succes'
-                >
+              <Buttons variant="succes">
                 خریدن محصول
               </Buttons>
-              <Buttons className=" hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow"  
-                variant='primery'
-                >
-                افزودن به علاقه مندی
-              </Buttons>
-              <Buttons className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow"  
-                variant='danger'
-                >
+
+              <Buttons variant="danger">
                 حذف محصول
               </Buttons>
+
+              <Buttons variant="primery" className="text-sm">
+                افزودن به علاقه‌مندی‌ها
+              </Buttons>
+
             </div>
 
             </div>
