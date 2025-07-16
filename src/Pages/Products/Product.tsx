@@ -1,14 +1,30 @@
-import { useParams } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import Container from '../../Component/Navbar/container/Container'
 import Buttons from '../../Component/buttons/Buttons'
+import { useCart } from '../../Component/cartitem/CartItems';
 
 export default function Product() {
-  const { id } = useParams()
+    const {addToCart} = useCart()
+    const navigate = useNavigate()
+    const handleBuyClick = () => {
+    const product = 
+      {
+      id: 1,
+      title: "عطر خاص کانادایی",
+      price: 560000,
+      quantity: 1,
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
+    }
+
+    addToCart(product) 
+    navigate("/Addtocart" , {state : {product }}) 
+}
+
 
   return (
     <div className="bg-gray-50">
       <Container>
-            <section className="py-10 border-b">
+            <section  className="py-10 border-b">
         {/* معرفی محصول */}
         <div className="w-full text-right mb-6">
           <p
@@ -31,19 +47,16 @@ export default function Product() {
           </div>
 
           <div className="max-w-lg text-right">
-            <h1 className="text-2xl font-bold mb-4 text-gray-900">{id}</h1>
+            <h1 className="text-2xl font-bold mb-4 text-gray-900"></h1>
             <p className="text-lg text-green-600 font-semibold">قیمت: ۵۸۰٬۰۰۰ تومان</p>
             <p className="text-sm text-gray-500 mt-2">موجود در انبار | ارسال رایگان</p>
             <div className="flex flex-row-reverse gap-4 mt-6 justify-end">
 {/* /////////////////////////////////////////////////////////////////////////////// */}
             <div className="flex flex-row-reverse gap-4 mt-6 justify-end">
-              <Buttons variant="succes">
+                <Buttons variant="succes" onClick={handleBuyClick}>
                 خریدن محصول
               </Buttons>
 
-              <Buttons variant="danger">
-                حذف محصول
-              </Buttons>
 
               <Buttons variant="primery" className="text-sm">
                 افزودن به علاقه‌مندی‌ها

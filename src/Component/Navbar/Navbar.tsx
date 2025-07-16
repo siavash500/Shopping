@@ -2,8 +2,10 @@ import React from 'react'
 import Home from '../../Pages/home/Home'
 import Store from '../../Pages/store/Store'
 import Product from '../../Pages/Products/Product'
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import NavButton from '../navbuttons/NavButtons'
+import Addtocart from '../../Pages/AddToCart/Addtocart'
+
 // کانتینر ساده با عرض کامل
 function Container({ children }: { children: React.ReactNode }) {
   return (
@@ -20,8 +22,9 @@ export default function Navbar() {
         <Container>
           <ul className="flex justify-between w-full flex-row-reverse items-center">
             <NavButton to="/" label="فروشگاه حاجی" />
-            <NavButton to="/store" label="سبد خرید" />
-            <NavButton to="/products" label="محصولات" />
+            <NavButton to="/store" label="محصولات" />
+            <NavButton to="/addtocart" label="سبد خرید" />
+            {/* <NavButton to={`/Product/${1}`} label='Product' /> */}
           </ul>
         </Container>
       </nav>
@@ -30,7 +33,9 @@ export default function Navbar() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/store" element={<Store />} />
-          <Route path='/Product/:id' element={<Product />} />
+          <Route path="/addtocart" element={<Addtocart />} />
+          <Route path="/Product/:id" element={<Product />} />
+
         </Routes>
       </Container>
     </BrowserRouter>
