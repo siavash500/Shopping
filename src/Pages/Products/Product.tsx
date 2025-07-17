@@ -17,9 +17,11 @@ export default function Product() {
     }
 
     addToCart(product) 
-    navigate("/Addtocart" , {state : {product }}) 
+    navigate("/Cart" , {state : {product }}) 
 }
-
+    const handleFavorClick = () => {
+      navigate("favorites")
+    }
 
   return (
     <div className="bg-gray-50">
@@ -58,7 +60,7 @@ export default function Product() {
               </Buttons>
 
 
-              <Buttons variant="primery" className="text-sm">
+              <Buttons variant="primery" onClick={handleFavorClick} className="text-sm">
                 افزودن به علاقه‌مندی‌ها
               </Buttons>
 

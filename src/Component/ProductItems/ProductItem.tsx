@@ -3,10 +3,10 @@ export default function ProductItem() {
     return (
         <div className="shadow border rounded pb-5">
             <img
-                className="rounded-t"
-
+                className="rounded-t object-cover w-full h-full"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s" alt="" />
-            <div className="flex justify-between flex-row-reverse px-4 mt-2">
+
+            <div className="flex justify-between flex-row-reverse px-4 mt-2  " >
                 <h3>عنوان محصول</h3>
                 <span>555</span>
             </div>

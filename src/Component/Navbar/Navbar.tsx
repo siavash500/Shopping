@@ -5,7 +5,8 @@ import Product from '../../Pages/Products/Product'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import NavButton from '../navbuttons/NavButtons'
 import Addtocart from '../../Pages/AddToCart/Addtocart'
-
+import Cart from '../cart/Cart'
+import Favorites from '../favorites/Favoritis'
 // کانتینر ساده با عرض کامل
 function Container({ children }: { children: React.ReactNode }) {
   return (
@@ -35,7 +36,8 @@ export default function Navbar() {
           <Route path="/store" element={<Store />} />
           <Route path="/addtocart" element={<Addtocart />} />
           <Route path="/Product/:id" element={<Product />} />
-
+          <Route path='cart' element={<Cart/>}/>
+          <Route path='/favorites' element={<Favorites/>}/>
         </Routes>
       </Container>
     </BrowserRouter>
