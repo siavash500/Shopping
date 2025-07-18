@@ -1,45 +1,92 @@
-import React from 'react'
-import Home from '../../Pages/home/Home'
-import Store from '../../Pages/store/Store'
-import Product from '../../Pages/Products/Product'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import NavButton from '../navbuttons/NavButtons'
-import Addtocart from '../../Pages/AddToCart/Addtocart'
-import Cart from '../cart/Cart'
-import Favorites from '../favorites/Favoritis'
-// کانتینر ساده با عرض کامل
+import React from 'react';
+import Home from '../../Pages/home/Home';
+import Store from '../../Pages/store/Store';
+import Product from '../../Pages/Products/Product';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import NavButton from '../navbuttons/NavButtons';
+import Addtocart from '../../Pages/AddToCart/Addtocart';
+import Cart from '../cart/Cart';
+import Favorites from '../favorites/Favoritis';
+import iconeimg from "./icone.png";
+import iconesearch from "./search1.png"
+import { useState } from 'react';
 function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full px-4 max-w-screen-xl mx-auto">
-      {children}
-    </div>
-  )
+    <div className="w-full px-4 max-w-screen-2xl mx-auto">{children}</div>
+  );
 }
 
 export default function Navbar() {
+
+    const [isFocused, setIsFocused] = useState(false);
+
   return (
     <BrowserRouter>
-      <nav className="border-b shadow h-14 flex items-center">
+      <header className="bg-white border-b shadow-sm">
         <Container>
-          <ul className="flex justify-between w-full flex-row-reverse items-center">
-            <NavButton to="/" label="فروشگاه حاجی" />
-            <NavButton to="/store" label="محصولات" />
-            <NavButton to="/addtocart" label="سبد خرید" />
-            {/* <NavButton to={`/Product/${1}`} label='Product' /> */}
-          </ul>
-        </Container>
-      </nav>
+          <div className="flex flex-col xl:flex-row items-center py-4 xl:py-6 gap-4 xl:gap-10 text-right" dir="rtl">
+            
+            {/* برند یا لوگو */}
+            <div className="flex items-center gap-3">
+              <a href="/" className="cursor-pointer">
+                <img src={iconeimg} alt="لوگو فروشگاه" className="w-12 h-12 xl:w-16 xl:h-16 rounded-full shadow" />
+              </a>
+              
+            </div>
 
-      <Container>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/addtocart" element={<Addtocart />} />
-          <Route path="/Product/:id" element={<Product />} />
-          <Route path='cart' element={<Cart/>}/>
-          <Route path='/favorites' element={<Favorites/>}/>
-        </Routes>
-      </Container>
+            {/* فیلد جستجو */}
+            <div className="w-full xl:w-[550px] 2xl:w-[650px]">
+              
+              <div className="relative w-full max-w-md">
+                <input
+                  type="text"
+                  placeholder="جستجو..."
+                  className="w-full pr-12 py-2 px-4 rounded border border-gray-300 text-right bg-gray-100 text-sm xl:text-base focus:outline-none focus:ring-2 focus:ring-red-500"
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={(e) => {
+                    // فقط زمانی دوباره آیکون برگرده که فیلد خالی باشه
+                    if (e.target.value.trim() === "") {
+                      setIsFocused(false);
+                    }
+                  }}
+                />
+
+                {!isFocused && (
+                  <img
+                    src={iconesearch}
+                    alt="آیکون جستجو"
+                    className="absolute top-1/2 right-3 transform -translate-y-1/2 w-6 h-6 transition-opacity duration-300"
+                  />
+                )}
+              </div>
+
+            </div>
+
+            {/* منوی ناوبری */}
+            <nav className="w-full xl:w-auto">
+              <ul className="flex flex-wrap justify-center xl:justify-end gap-3 xl:gap-5 2xl:gap-6 text-sm xl:text-base 2xl:text-lg">
+                <NavButton to="/" label="خانه" />
+                <NavButton to="/store" label="محصولات" />
+                <NavButton to="/addtocart" label="سبد خرید" />
+                <NavButton to="/favorites" label="علاقه‌مندی‌ها" />
+              </ul>
+            </nav>
+          </div>
+        </Container>
+      </header>
+
+      <main className="py-6 xl:py-8">
+        <Container>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/addtocart" element={<Addtocart />} />
+            <Route path="/product/:productId" element={<Product />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/favorites" element={<Favorites />} />
+          </Routes>
+        </Container>
+      </main>
     </BrowserRouter>
-  )
+  );
 }

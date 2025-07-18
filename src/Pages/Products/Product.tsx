@@ -1,86 +1,172 @@
-import {  useNavigate } from 'react-router-dom'
-import Container from '../../Component/Navbar/container/Container'
-import Buttons from '../../Component/buttons/Buttons'
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import Container from '../../Component/Navbar/container/Container';
+import Buttons from '../../Component/buttons/Buttons';
 import { useCart } from '../../Component/cartitem/CartItems';
 
+// تعریف نوع محصول
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
+interface Products {
+  [key: number]: Product;
+}
+
 export default function Product() {
-    const {addToCart} = useCart()
-    const navigate = useNavigate()
-    const handleBuyClick = () => {
-    const product = 
-      {
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+  const { productId } = useParams<{ productId: string }>();
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const products: Products = {
+    1: {
       id: 1,
       title: "عطر خاص کانادایی",
       price: 560000,
       quantity: 1,
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
+    },
+    2: {
+      id: 2,
+      title: "عطر فرانسوی",
+      price: 480000,
+      quantity: 1,
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
+    },
+    3: {
+      id: 3,
+      title: "عطر شرقی گرم",
+      price: 730000,
+      quantity: 1,
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
+    },
+    4: {
+      id: 4,
+      title: "عطر زنانه شیرین",
+      price: 600000,
+      quantity: 1,
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
+    },
+    5: {
+      id: 5,
+      title: "عطر کلاسیک ایتالیایی",
+      price: 820000,
+      quantity: 1,
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
+    },
+    6: {
+      id: 6,
+      title: "عطر تلخ مردانه",
+      price: 670000,
+      quantity: 1,
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
+    }
+  };
+
+  const currentProductId = parseInt(productId || '0');
+  const product = products[currentProductId];
+
+  const handleBuyClick = () => {
+    if (!product) return;
+    addToCart(product);
+     // دریافت لیست فعلی از localStorage
+    const prevCartStr = localStorage.getItem("cartProducts") || "[]";
+    const prevCart = JSON.parse(prevCartStr);
+
+
+    // اضافه‌کردن محصول جدید
+    const updatedCart = [...prevCart, product];
+    localStorage.setItem("cartProducts", JSON.stringify(updatedCart));
+    localStorage.setItem("cartProduct", JSON.stringify(product));
+    navigate("/addtocart");
+  };
+
+  useEffect(() => {
+    if (!product) return;
+    const favorites: Record<number, Product> = JSON.parse(localStorage.getItem("favorites") || "{}");
+    setIsFavorite(!!favorites[product.id]);
+  }, [product]);
+
+  const handleFavorClick = () => {
+    if (!product) return;
+    const newFavoriteStatus = !isFavorite;
+    setIsFavorite(newFavoriteStatus);
+
+    const favorites: Record<number, Product> = JSON.parse(localStorage.getItem("favorites") || "{}");
+
+    if (newFavoriteStatus) {
+      favorites[product.id] = product;
+    } else {
+      delete favorites[product.id];
     }
 
-    addToCart(product) 
-    navigate("/Cart" , {state : {product }}) 
-}
-    const handleFavorClick = () => {
-      navigate("favorites")
-    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  };
+
+  if (!product) {
+    return (
+      <Container>
+        <div className="text-center py-10">
+          <p className="text-gray-500">محصول یافت نشد</p>
+        </div>
+      </Container>
+    );
+  }
 
   return (
-    <div className="bg-gray-50">
-      <Container>
-            <section  className="py-10 border-b">
-        {/* معرفی محصول */}
-        <div className="w-full text-right mb-6">
-          <p
-            className="text-[#212121] px-4"
-            style={{ fontSize: "20px", fontWeight: "600" }}
-          >
-            رایحه‌ای خوشبو کننده و معتبر، وارداتی از کانادا. محبوب بین طرفداران عطرهای خاص و ماندگار.
+    <Container>
+      <div className="py-10 px-4 text-right" dir="rtl">
+        <div className="mb-8">
+          <p className="text-gray-800 text-xl leading-relaxed mt-5">
+            در این بخش با یکی از محصولات خاص مجموعه عطرهای ما آشنا می‌شوید. انتخابی بی‌نظیر برای سلیقه‌های خاص.
           </p>
         </div>
 
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-8 mb-10">
+          <img
+            src={product.image}
+            alt={product.title}
+            className="w-64 h-64 object-cover rounded shadow-md ml-auto"
+          />
 
-        {/* عکس و اطلاعات اصلی */}
-        <div className="flex flex-row-reverse items-center justify-between gap-6 flex-wrap">
-          <div className="w-[350px] h-[290px] rounded shadow overflow-hidden">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
-              alt="Product"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <div className="flex-1">
+            <h2 className="text-xl font-semibold text-gray-800 mb-3">{product.title}</h2>
+            <p className="text-gray-700 mb-4 font-medium">قیمت: {product.price.toLocaleString()} تومان</p>
 
-          <div className="max-w-lg text-right">
-            <h1 className="text-2xl font-bold mb-4 text-gray-900"></h1>
-            <p className="text-lg text-green-600 font-semibold">قیمت: ۵۸۰٬۰۰۰ تومان</p>
-            <p className="text-sm text-gray-500 mt-2">موجود در انبار | ارسال رایگان</p>
-            <div className="flex flex-row-reverse gap-4 mt-6 justify-end">
-{/* /////////////////////////////////////////////////////////////////////////////// */}
-            <div className="flex flex-row-reverse gap-4 mt-6 justify-end">
-                <Buttons variant="succes" onClick={handleBuyClick}>
-                خریدن محصول
+            <div className="flex flex-col gap-4">
+              <Buttons
+                variant="primery"
+                onClick={handleBuyClick}
+                className="text-sm"
+              >
+                افزودن به سبد خرید
               </Buttons>
 
-
-              <Buttons variant="primery" onClick={handleFavorClick} className="text-sm">
-                افزودن به علاقه‌مندی‌ها
+              <Buttons
+                variant={isFavorite ? "danger" : "primery"}
+                onClick={handleFavorClick}
+                className="text-sm"
+              >
+                {isFavorite ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها"}
               </Buttons>
-
-            </div>
-
             </div>
           </div>
         </div>
-      </section>
 
-        {/* بخش توضیحات و مشخصات پایین‌تر */}
-        <section className="py-12 max-w-3xl mx-auto">
-          <h2 className="text-xl text-right font-bold mb-4 text-gray-800">توضیحات محصول</h2>
-          <p className="text-right leading-relaxed text-gray-700  bg-white p-6 rounded shadow">
-            لورم ایپسوم دولور سیت آمِت، عطری از دل شب. این رایحه با نت‌های ابتدایی مرکبات تازه آغاز می‌شود،
-            سپس در قلب خود گل‌های سفید و چوب صندل را آشکار می‌کند، و در پایان با لمس گرم مشک و وانیل،
-            حسی ماندگار و اغواگر به جا می‌گذارد. مناسب برای روزهای خاص و لحظه‌هایی که می‌خواهی خاطره‌انگیز باشی.
+        <div className="mt-6 border-t border-gray-300 pt-6">
+          <h3 className="text-lg font-semibold text-gray-700 mb-3">درباره‌ی این عطر</h3>
+          <p className="text-lg text-gray-800 leading-7">
+            این عطر بی‌نظیر با رایحه‌ای متعادل از نت‌های چوبی، گلی و مرکبات، حس طراوت و شادابی را با شکوهی خاص ترکیب می‌کند.
+            طراحی شیشه‌ی محصول به گونه‌ای است که هم در مجموعه شخصی شما می‌درخشد و هم به‌عنوان هدیه‌ای لوکس قابل استفاده است.
+            ماندگاری بالا، پخش رایحه مناسب و اصالت ترکیب، این عطر را به گزینه‌ای ایده‌آل برای استفاده روزمره یا مهمانی‌های رسمی تبدیل کرده‌اند.
           </p>
-        </section>
-      </Container>
-    </div>
-  )
+        </div>
+      </div>
+    </Container>
+  );
 }

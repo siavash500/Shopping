@@ -12,7 +12,9 @@ export default function ProductItem() {
             </div>
             <div className="px-4 mt-2">
                 <p className="line-clamp-2 text-right">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque in vero totam amet ab, eligendi reiciendis ullam, corporis quibusdam voluptates illum facilis, esse officiis labore culpa explicabo debitis obcaecati tenetur?
+                     این عطر بی‌نظیر با رایحه‌ای متعادل از نت‌های چوبی، گلی و مرکبات، حس طراوت و شادابی را با شکوهی خاص ترکیب می‌کند.
+          طراحی شیشه‌ی محصول به گونه‌ای است که هم در مجموعه شخصی شما می‌درخشد و هم به‌عنوان هدیه‌ای لوکس قابل استفاده است.
+          ماندگاری بالا، پخش رایحه مناسب و اصالت ترکیب، این عطر را به گزینه‌ای ایده‌آل برای استفاده روزمره یا مهمانی‌های رسمی تبدیل کرده‌اند.
                 </p>
             </div>
         </div>
