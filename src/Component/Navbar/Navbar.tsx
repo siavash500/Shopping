@@ -23,57 +23,59 @@ export default function Navbar() {
   return (
     <BrowserRouter>
       <header className="bg-white border-b shadow-sm">
-        <Container>
-          <div className="flex flex-col xl:flex-row items-center py-4 xl:py-6 gap-4 xl:gap-10 text-right" dir="rtl">
-            
-            {/* برند یا لوگو */}
-            <div className="flex items-center gap-3">
-              <a href="/" className="cursor-pointer">
-                <img src={iconeimg} alt="لوگو فروشگاه" className="w-12 h-12 xl:w-16 xl:h-16 rounded-full shadow" />
-              </a>
-              
-            </div>
+  <Container>
+    <div className="flex flex-col md:flex-row items-center gap-6 py-4 m-1 mb-0" dir="rtl">
+  {/* لوگو فروشگاه */}
+  <div className="flex items-center gap-3 mb-4 md:mb-0">
+    <a href="/" className="cursor-pointer">
+      <img
+        src={iconeimg}
+        alt="لوگو فروشگاه"
+        className="w-12 h-12 md:w-14 md:h-14 rounded-full shadow min-w-14 "
+      />
+    </a>
+   
+  </div>
 
-            {/* فیلد جستجو */}
-            <div className="w-full xl:w-[550px] 2xl:w-[650px]">
-              
-              <div className="relative w-full max-w-md">
-                <input
-                  type="text"
-                  placeholder="جستجو..."
-                  className="w-full pr-12 py-2 px-4 rounded border border-gray-300 text-right bg-gray-100 text-sm xl:text-base focus:outline-none focus:ring-2 focus:ring-red-500"
-                  onFocus={() => setIsFocused(true)}
-                  onBlur={(e) => {
-                    // فقط زمانی دوباره آیکون برگرده که فیلد خالی باشه
-                    if (e.target.value.trim() === "") {
-                      setIsFocused(false);
-                    }
-                  }}
-                />
+  {/* باکس جستجو */}
+  <div className="relative w-full md:w-[500px]">
+    <input
+      type="text"
+      placeholder="جستجو..."
+      className="w-full pr-12 py-2 px-4 rounded border border-gray-300 text-right bg-gray-100 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-red-500"
+      onFocus={() => setIsFocused(true)}
+      onBlur={(e) => {
+        if (e.target.value.trim() === "") setIsFocused(false);
+      }}
+    />
+    {!isFocused && (
+      <img
+        src={iconesearch}
+        alt="آیکون جستجو"
+        className="absolute top-1/2 right-3 transform -translate-y-1/2 w-6 h-6 transition-opacity duration-300"
+      />
+    )}
+  </div>
+</div>
 
-                {!isFocused && (
-                  <img
-                    src={iconesearch}
-                    alt="آیکون جستجو"
-                    className="absolute top-1/2 right-3 transform -translate-y-1/2 w-6 h-6 transition-opacity duration-300"
-                  />
-                )}
-              </div>
 
-            </div>
+    {/* پایین ناوبری: لینک‌ها جدا */}
+    <nav >
+      <ul className="
+        flex  mb-[10px]
+        gap-2 sm:gap-2 xl:gap-6
+        text-xs sm:text-sm xl:text-base 2xl:text-lg flex-row-reverse ml-1
+      ">
+        <NavButton to="/" label="خانه" />
+        <NavButton to="/store" label="محصولات" />
+        <NavButton to="/addtocart" label="سبد خرید" />
+        <NavButton to="/favorites" label="علاقه‌مندی‌ها" />
+      </ul>
+    </nav>
+  </Container>
+</header>
 
-            {/* منوی ناوبری */}
-            <nav className="w-full xl:w-auto">
-              <ul className="flex flex-wrap justify-center xl:justify-end gap-3 xl:gap-5 2xl:gap-6 text-sm xl:text-base 2xl:text-lg">
-                <NavButton to="/" label="خانه" />
-                <NavButton to="/store" label="محصولات" />
-                <NavButton to="/addtocart" label="سبد خرید" />
-                <NavButton to="/favorites" label="علاقه‌مندی‌ها" />
-              </ul>
-            </nav>
-          </div>
-        </Container>
-      </header>
+
 
       <main className="py-6 xl:py-8">
         <Container>
