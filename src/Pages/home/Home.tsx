@@ -55,7 +55,7 @@ export default function Home() {
               onClick={() => navigate(`/Product/${id}`)}
               className="cursor-pointer bg-white p-4 rounded-lg shadow hover:shadow-xl transition-transform hover:scale-[1.03]"
             >
-              <ProductItem id={id} />
+              <ProductItem id={id} title={''} price={0} image={''} />
             </div>
           ))}
         </div>

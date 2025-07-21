@@ -4,28 +4,30 @@ interface ProductItemProps {
   price: number;
   image: string;
 }
-export default function ProductItem({ id, title, price, image }: ProductItemProps) {
+export default function ProductItem({  title, price, image }: ProductItemProps) {
   return (
-    <div className="shadow border rounded pb-5">
-      <span className="block text-sm text-gray-600 px-4 pt-2">شماره محصول: {id}</span>
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300">
+  <img
+    src={image}
+    alt={title}
+    className="w-full h-[200px] object-cover border-b"
+  />
 
-      <img
-        className="rounded-t object-cover w-full h-[180px]"
-        src={image}
-        alt={title}
-      />
-
-      <div className="flex justify-between flex-row-reverse px-4 mt-2">
-        <h3 className="text-base font-bold text-gray-800">{title}</h3>
-        <span className="text-sm font-semibold text-red-500">{price.toLocaleString()} تومان</span>
-      </div>
-
-      <div className="px-4 mt-2">
-        <p className="line-clamp-2 text-right text-gray-600 text-sm">
-          این عطر بی‌نظیر با رایحه‌ای خاص، طراحی لوکس و ماندگاری بالا، انتخابی مناسب برای هر سلیقه‌ایست.
-        </p>
-      </div>
+  <div className="p-4 flex flex-col justify-between h-full text-right">
+    <div>
+      <h3 className="text-lg font-extrabold text-gray-800 mb-1">{title}</h3>
+      <p className="text-sm text-red-600 font-semibold mb-2">
+        {price.toLocaleString()} تومان
+      </p>
+      <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
+        این عطر بی‌نظیر با رایحه‌ای خاص، طراحی لوکس و ماندگاری بالا، انتخابی مناسب برای هر سلیقه‌ایست.
+      </p>
     </div>
+
+   
+  </div>
+</div>
+
   );
 }
 

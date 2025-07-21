@@ -24,11 +24,36 @@ export default function PageCart() {
  return (
  <Container>
   <div
-    className="bg-gray-100 border rounded-lg shadow-lg mt-10 p-4 sm:p-6 flex flex-col lg:flex-row-reverse gap-6 text-right"
+    className="bg-gray-100 border rounded-lg shadow-lg mt-10 p-4 sm:p-6 flex flex-col lg:flex-row gap-6 text-right xl:flex-row"
     dir="rtl"
   >
+    
+    {/* ستون دکمه‌ها در سمت راست */}
+    <div className="w-full lg:w-[300px] bg-white border border-gray-300 rounded-lg p-4 shadow-sm h-fit ">
+      <h2 className="text-lg font-bold mb-6">دسته‌بندی‌ها</h2>
+      <div className="flex flex-col gap-4">
+        <button
+          onClick={() => setActiveSection('cart')}
+          className={`w-full py-2 px-4 rounded font-bold transition ${
+            activeSection === 'cart' ? 'bg-black text-white' : 'bg-gray-200 hover:bg-black hover:text-white'
+          }`}
+        >
+          🛒 سبد خرید
+        </button>
+
+        <button
+          onClick={() => setActiveSection('favorites')}
+          className={`w-full py-2 px-4 rounded font-bold transition ${
+            activeSection === 'favorites' ? 'bg-stone-800 text-white' : 'bg-gray-200 hover:bg-stone-800 hover:text-white'
+          }`}
+        >
+          ❤️ علاقه‌مندی‌ها
+        </button>
+      </div>
+    </div>
+
     {/* محتوای انتخاب‌شده */}
-    <div className="w-full bg-white border border-gray-300 rounded-lg p-4 sm:p-6 shadow-sm min-h-[400px]">
+    <div className="w-full bg-white border border-gray-300 rounded-lg p-4 sm:p-6 shadow -sm min-h-[400px]">
       {activeSection === 'cart' ? (
         <>
           <h1 className="text-xl font-bold mb-4 text-gray-800">سبد خرید</h1>
@@ -61,29 +86,6 @@ export default function PageCart() {
       )}
     </div>
 
-    {/* ستون دکمه‌ها در سمت راست */}
-    <div className="w-full lg:w-[300px] bg-white border border-gray-300 rounded-lg p-4 shadow-sm h-fit">
-      <h2 className="text-lg font-bold mb-6">دسته‌بندی‌ها</h2>
-      <div className="flex flex-col gap-4">
-        <button
-          onClick={() => setActiveSection('cart')}
-          className={`w-full py-2 px-4 rounded font-bold transition ${
-            activeSection === 'cart' ? 'bg-black text-white' : 'bg-gray-200 hover:bg-black hover:text-white'
-          }`}
-        >
-          🛒 سبد خرید
-        </button>
-
-        <button
-          onClick={() => setActiveSection('favorites')}
-          className={`w-full py-2 px-4 rounded font-bold transition ${
-            activeSection === 'favorites' ? 'bg-stone-800 text-white' : 'bg-gray-200 hover:bg-stone-800 hover:text-white'
-          }`}
-        >
-          ❤️ علاقه‌مندی‌ها
-        </button>
-      </div>
-    </div>
   </div>
 </Container>
  )

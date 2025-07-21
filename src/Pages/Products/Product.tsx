@@ -13,10 +13,6 @@ interface Product {
   image: string;
 }
 
-interface Products {
-  [key: number]: Product;
-}
-
 export default function Product() {
   const { addToCart } = useCart();
   const navigate = useNavigate();
@@ -26,10 +22,10 @@ export default function Product() {
 
   //get the API
 
-  useEffect(() => {
+ useEffect(() => {
   if (!productId) return;
 
-  fetch(`http://localhost:3000/products/${productId}`)
+  fetch(`http://localhost:3001/products/${productId}`)
     .then((res) => {
       if (!res.ok) throw new Error('محصول یافت نشد');
       return res.json();
@@ -67,11 +63,14 @@ export default function Product() {
     navigate("/addtocart");
   };
 
-  useEffect(() => {
-    if (!product) return;
-    const favorites: Record<number, Product> = JSON.parse(localStorage.getItem("favorites") || "{}");
-    setIsFavorite(!!favorites[product.id]);
-  }, [product]);
+  //favorite
+
+//   useEffect (()=> {
+//     if (!product || typeof product.id !== "number") return;
+    
+//     const favorites = JSON.parse(localStorage.getItem("favorites") || "{}")  as Record<number, Product>;
+//      setIsFavorite(!!favorites[product.id]);
+// }, [product?.id]);
 
   const handleFavorClick = () => {
     if (!product) return;

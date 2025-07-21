@@ -60,33 +60,45 @@ export default function Favorites() {
 
   return (
     <Container>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-        {products.map((product) => (
-          <div key={product.id} className="bg-white rounded-lg shadow overflow-hidden">
-            <img
-              src={product.image}
-              alt={product.title}
-              className="w-full  h-49 object-cover"
-            />
-            <div className="p-4 text-right ">
-              <h2 className="text-xl font-bold mb-2">{product.title}</h2>
-              <p className="text-lg">
-                <span className="font-semibold">قیمت:</span> {product.price.toLocaleString()} تومان
-              </p>
-              <span className="inline-block mt-2 px-3 py-1 bg-green-100 text-green-800 rounded-full">
-                علاقه‌مندی
-              </span> 
-              <button
-                onClick={() => handleRemoveFavorite(product.id)}
-                className="mt-4 px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 ml-3" 
-              >
-              حذف 
-            </button>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
+  {products.map((product) => (
+    <div
+      key={product.id}
+      className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transition hover:scale-[1.015] hover:shadow-lg duration-300 cursor-pointer"
+    >
+      <img
+        src={product.image}
+        alt={product.title}
+        className="w-full h-[200px] object-cover"
+      />
 
-            </div>
-          </div>
-        ))}
+      <div className="p-4 text-right flex flex-col justify-between flex-1">
+        <div>
+          <h2 className="text-base sm:text-lg font-bold text-gray-800 mb-2">
+            {product.title}
+          </h2>
+          <p className="text-sm sm:text-base text-gray-700 font-semibold">
+            قیمت: {product.price.toLocaleString()} تومان
+          </p>
+        </div>
+
+        <div className="mt-4 flex flex-wrap-reverse justify-between items-center gap-2">
+          <span className="px-3 py-1 bg-green-100 text-green-800 text-xs sm:text-sm rounded-full">
+            ❤️ علاقه‌مندی
+          </span>
+
+          <button
+            onClick={() => handleRemoveFavorite(product.id)}
+            className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 text-xs sm:text-sm"
+          >
+            حذف
+          </button>
+        </div>
       </div>
+    </div>
+  ))}
+</div>
+
     </Container>
   )
 }
