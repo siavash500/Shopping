@@ -16,16 +16,18 @@ export default function Home() {
   return (
     <Container>
       <div
-        className="bg-white text-stone-800 min-h-screen text-right px-2 sm:px-4 xl:px-16 2xl:px-28 py-8 xl:py-12 2xl:py-16"
+        className="bg-white text-stone-800 min-h-screen text-right px-1 sm:px-1 xl:px-1 2xl:px-1 "
         dir="rtl"
       >
         {/* بنر ورودی برند */}
-        <div className="relative w-full">
+        <div className="relative w-full mb-[60px]">
           <img
-            src={C}
-            alt="بنر اصلی"
-            className="w-full h-[300px] sm:h-[400px] xl:h-[500px] 2xl:h-[680px] object-cover rounded-xl shadow-md"
-          />
+          src={C}
+          alt="بنر اصلی"
+          className="w-full h-[55vh] sm:h-[60vh] xl:h-[70vh] 2xl:h-[76vh] object-cover rounded-xl shadow-md"
+
+        />
+
 
           <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center text-[#f3f3f3] px-4">
             <h1 className="text-2xl sm:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[#ffe5e5] mb-2 animate-fade-in">

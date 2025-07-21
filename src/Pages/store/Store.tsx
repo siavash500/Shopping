@@ -1,13 +1,27 @@
+import { useState , useEffect } from 'react';
 import ProductItem from '../../Component/ProductItems/ProductItem';
 import Container from '../../Component/Navbar/container/Container';
 import { useNavigate } from 'react-router-dom';
 
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+}
+
 export default function Store() {
   const navigate = useNavigate();
-  const productIds = [1, 2, 3, 4, 5, 6];
+  const [products, setProducts] = useState<Product[]>([]);
+
+   useEffect(() => {
+    fetch("http://localhost:3001/products")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
 
   return (
-    <Container>
+     <Container>
       <div className="text-right mt-5 mb-4" dir="rtl">
         <h1 className="font-bold text-2xl text-gray-800">جدیدترین محصولات</h1>
         <p className="text-sm text-gray-500 mt-2">
@@ -16,13 +30,18 @@ export default function Store() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {productIds.map((id) => (
+        {products.map((product) => (
           <div
-            key={id}
-            onClick={() => navigate(`/Product/${id}`)}
+            key={product.id}
+            onClick={() => navigate(`/Product/${product.id}`)}
             className="cursor-pointer hover:shadow-lg transition-all border rounded-lg overflow-hidden bg-white"
           >
-            <ProductItem />
+            <ProductItem
+              id={product.id}
+              title={product.title}
+              price={product.price}
+              image={product.image}
+            />
           </div>
         ))}
       </div>

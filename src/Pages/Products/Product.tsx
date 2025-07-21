@@ -22,54 +22,35 @@ export default function Product() {
   const navigate = useNavigate();
   const { productId } = useParams<{ productId: string }>();
   const [isFavorite, setIsFavorite] = useState(false);
+  const [product, setProduct] = useState<Product | null>(null);
 
-  const products: Products = {
-    1: {
-      id: 1,
-      title: "عطر خاص کانادایی",
-      price: 560000,
-      quantity: 1,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
-    },
-    2: {
-      id: 2,
-      title: "عطر فرانسوی",
-      price: 480000,
-      quantity: 1,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
-    },
-    3: {
-      id: 3,
-      title: "عطر شرقی گرم",
-      price: 730000,
-      quantity: 1,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
-    },
-    4: {
-      id: 4,
-      title: "عطر زنانه شیرین",
-      price: 600000,
-      quantity: 1,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
-    },
-    5: {
-      id: 5,
-      title: "عطر کلاسیک ایتالیایی",
-      price: 820000,
-      quantity: 1,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
-    },
-    6: {
-      id: 6,
-      title: "عطر تلخ مردانه",
-      price: 670000,
-      quantity: 1,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS18l3WpAVbJkrC0TCxkV-jK0Z0is0Ke-Qt9Q&s"
-    }
-  };
+  //get the API
+
+  useEffect(() => {
+  if (!productId) return;
+
+  fetch(`http://localhost:3000/products/${productId}`)
+    .then((res) => {
+      if (!res.ok) throw new Error('محصول یافت نشد');
+      return res.json();
+    })
+    .then((data) => setProduct(data))
+    .catch(() => setProduct(null));
+}, [productId]);
+
+
+  if (!product) {
+  return (
+    <Container>
+      <div className="text-center py-10">
+        <p className="text-gray-500">محصول یافت نشد</p>
+      </div>
+    </Container>
+  );
+}
+
 
   const currentProductId = parseInt(productId || '0');
-  const product = products[currentProductId];
 
   const handleBuyClick = () => {
     if (!product) return;
