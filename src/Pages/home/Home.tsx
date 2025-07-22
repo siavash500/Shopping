@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Container from '../../Component/Navbar/container/Container';
 import C from './s.jpg';
 import ProductItem from '../../Component/ProductItems/ProductItem';
+import { getProducts } from '../../service/api';
+
 
 interface Product {
   id: number;
@@ -12,17 +14,26 @@ interface Product {
   image: string;
 }
 
+
 export default function Home() {
   const navigate = useNavigate();
-  const [products, setProducts] = useState<Product[]>([]);
+const [products, setProducts] = useState<Product[]>([]);
+ 
 
-  // گرفتن محصولات از fake API
+  // fetch API clear
   useEffect(() => {
-    fetch('http://localhost:3001/products') // ❗ اینجا باید فقط اسم resource باشه، نه با `${products}`
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((err) => console.error('❌ خطا در گرفتن محصولات:', err));
-  }, []);
+  async function fetchData() {
+    try {
+      const result = await getProducts();
+      setProducts(result);
+    } catch (error) {
+      console.error('❌ خطا در دریافت محصولات:', error);
+    }
+  }
+
+  fetchData();
+}, []);
+
 
   return (
     <Container>
@@ -54,22 +65,35 @@ export default function Home() {
         </div>
 
         {/* محصولات پیشنهادی */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mt-16">
-          {products.slice(0, 3).map((product) => (
-            <div
-              key={product.id}
-              onClick={() => navigate(`/Product/${product.id}`)}
-              className="cursor-pointer bg-white p-4 rounded-lg shadow hover:shadow-xl transition-transform hover:scale-[1.03]"
-            >
-              <ProductItem
-                id={product.id}
-                title={product.title}
-                price={product.price}
-                image={product.image}
-              />
-            </div>
-          ))}
-        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-x-6 gap-y-10 px-4 xl:h-[400px]">
+        {products.slice(0, 3).map((product) => (
+          <div
+            key={product.id}
+            onClick={() => navigate(`/Product/${product.id}`)}
+            className="
+              bg-white rounded-xl shadow-md 
+              transition-all hover:shadow-xl hover:scale-[1.02] 
+              border overflow-hidden 
+              h-[400] xl:h-[340px] flex flex-col cursor-pointer
+              
+            "
+          >
+            <ProductItem
+              id={product.id}
+              title={product.title}
+              price={product.price}
+              image={product.image}
+            />
+          </div>
+  ))}
+</div>
+
+
+
+
+
+        
+         
       </div>
     </Container>
   );
