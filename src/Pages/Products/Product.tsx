@@ -46,7 +46,6 @@ export default function Product() {
 }
 
 
-  const currentProductId = parseInt(productId || '0');
 
   const handleBuyClick = () => {
     if (!product) return;

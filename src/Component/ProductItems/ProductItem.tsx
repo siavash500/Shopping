@@ -1,10 +1,12 @@
-interface ProductItemProps {
+interface ProductItem {
   id: number;
   title: string;
   price: number;
   image: string;
 }
-export default function ProductItem({  title, price, image }: ProductItemProps) {
+export default function ProductItem({ id , title, price, image }: ProductItem) {
+  if (!title || !price || !image) return null;
+
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300">
   <img
