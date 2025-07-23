@@ -2,7 +2,7 @@ import { useState , useEffect } from 'react';
 import ProductItem from '../../Component/ProductItems/ProductItem';
 import Container from '../../Component/Navbar/container/Container';
 import { useNavigate } from 'react-router-dom';
-
+import { getProducts } from '../../service/api';
 interface Product {
   id: number;
   title: string;
@@ -15,11 +15,18 @@ export default function Store() {
   const [products, setProducts] = useState<Product[]>([]);
 
    useEffect(() => {
-    fetch("http://localhost:3001/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
-
+     async function fetchData() {
+       try {
+         const result = await getProducts();
+         setProducts(result);
+       } catch (error) {
+         console.error('❌ خطا در دریافت محصولات:', error);
+       }
+     }
+   
+     fetchData();
+   }, []);
+   
   return (
      <Container>
       <div className="text-right mt-5 mb-4" dir="rtl">

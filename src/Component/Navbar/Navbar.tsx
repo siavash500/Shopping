@@ -10,6 +10,7 @@ import Favorites from '../favorites/Favoritis';
 import iconeimg from "./icone.png";
 import iconesearch from "./search1.png"
 import { useState } from 'react';
+
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="w-full px-4 max-w-screen-2xl mx-auto">{children}</div>
@@ -17,12 +18,13 @@ function Container({ children }: { children: React.ReactNode }) {
 }
 
 export default function Navbar() {
+  
 
     const [isFocused, setIsFocused] = useState(false);
 
   return (
     <BrowserRouter>
-      <header className="bg-white border-b shadow-sm">
+      <header className="bg-white border-b shadow-sm overflow-visible">
   <Container>
     <div className="flex flex-col md:flex-row items-center gap-6 py-4 m-1 mb-0" dir="rtl">
   {/* لوگو فروشگاه */}
@@ -57,22 +59,20 @@ export default function Navbar() {
     )}
   </div>
 </div>
-
+  </Container>
 
     {/* پایین ناوبری: لینک‌ها جدا */}
-    <nav >
-      <ul className="
-        flex  mb-[10px]
-        gap-2 sm:gap-2 xl:gap-6
-        text-xs sm:text-sm xl:text-base 2xl:text-lg flex-row-reverse ml-1
-      ">
-        <NavButton to="/" label="خانه" />
-        <NavButton to="/store" label="محصولات" />
-        <NavButton to="/addtocart" label="سبد خرید" />
-        <NavButton to="/favorites" label="علاقه‌مندی‌ها" />
-      </ul>
-    </nav>
-  </Container>
+    {/* منو */}
+     <nav className="sticky top-0 z-[1000] ">
+    <ul className="flex mb-[10px] gap-2 sm:gap-2 xl:gap-6 text-xs sm:text-sm xl:text-base 2xl:text-lg flex-row-reverse ml-1">
+      <NavButton to="/" label="خانه" />
+      <NavButton to="/store" label="محصولات" />
+      <NavButton to="/addtocart" label="سبد خرید" />
+      <NavButton to="/favorites" label="علاقه‌مندی‌ها" />
+    </ul>
+</nav>
+
+
 </header>
 
 
